@@ -1,0 +1,208 @@
+-When code gets very large, inefficient code can cause serious performance issues 
+Big O provides a formalized way to measure how an algorithms performance changes as inputs grow larger
+
+
+breaks an algorithm down into basic, constant-time operations (time-complexity) or allocated slots in memory space (space complexity)
+
+
+o(1) - is constant
+log - logarithmic, slowly growing function 
+O(n^2)
+O(2^n)
+O(n!)
+
+
+..skipping ahead..
+
+count the number of operations the alogrithm will perfoirm as a function of its size, in he worst case sceanario
+
+
+iterations are linear; nested iterations are polynomial
+-rule of thumb: n^(levels of nesting)
+note: you can simplify and drop constants as you go
+
+Alogrithms & Benchmarking Demo:
+
+Ex 1. def print_al(array)
+..unfinished..
+
+
+
+Ex 2. def most_common_char(word)
+counts = Hash.new(0) #O(1) 
+word.chars.each { |char| counts|char| += 1} #O(n)
+ount.max_by { |_, num| num} #O(n)
+
+ O(1) + O(n) + O(n) => O(2n) + O(1) => O(n)
+
+
+counts = Hash.new(0) #O(1)  <-- were storing something(space complexity) the number itself isnt taking up space itself because the number is constant- its just one number, where as below we are storing more keys 
+word.chars.each { |char| counts|char| += 1} #O(n) <- this takes up space, its linear (n), contant, not storing anything. And does not effect time complexity. 
+^^ technically stored a = word.chars << because were temporarily storing it as an array, as opposed to each.char
+count.max_by { |_, num| num} #O(n)  <--- a block has space complexity bc its creating temporary variables of what is sitting as a block. Youre only storing 1 at a time in that loop, so its a constant operation, we are moving through them individually.
+^ this last line will create a variable called max, just one, we are storing the largest in that one variable, that is why we say its constant
+
+olgas Q: What if we create an empty array? when we add elements to that array it takes up additional space, as you add elements, you are allocatig more and more memory because each elements points to a diff space in memory, the object id points to the original location (storing the length of the array and when does it start)
+
+shorter is not always better in time complexity or space complexity
+
+   
+
+    ^^ in this one there is a limit to how many characters you can have - alphabet is only 26 for example, upcase, lowcase, other keys but not unlimited. Even if you have 100 a's youre only storing it as one character.
+
+
+
+    addition - one thing after another ^
+    multiplication - when theyre in loops, nested loops 
+
+Ex 3 class Array 
+    def include?(value)  
+        self.each do |el|
+            return true if (el == value)
+        end 
+
+    false 
+    end 
+end 
+
+
+
+ def include?(value)   ---> this is linear we are iterating through each element. We are considering worst case, we dont find it so we hae to go through every single element in the array O(n)
+        self.each do |el|
+            return true if (el == value)
+        end 
+
+    false 
+    end 
+end 
+
+Ex 4. Binary search 
+def bsearch(nums, target, start = 0, finish = nums.length)
+    returns nil if start == finish 
+
+mid = (finish - start) / 2 + start 
+case target <=> nums[mid]
+when -1 
+    bsearch(nums, target, start, mid)
+when 0 
+    mid 
+when 1 
+    bsearch(nums, target, mid + 1, finish)
+end 
+end 
+
+    this idea of diving this into half what kind of complexity is this? log(n) -- we are getting rid of eveyrthign and just looking at n, thats log(n). Whenever you are diving something into half constantly it takes log(n) time, its log(n)
+
+    time complexity is:
+    n  [12, 4, 5, 6 <PART]> 112, 4, 3, 5]
+    n//2 [12, 4,<PART> 5, 6 ]
+    n/4 [5, <PART]> 6]
+    n/8 [5]
+
+    the number of calls is the same number of times you divided this array  --- time complexity is more important for now.
+    if youre running it recursively, at most you have 4 calls^ in this example, it takes log(n) space and log(n) timee
+
+there is one question based on big 0 analysis-- no space complexity, time complexity on loops-- not binary search testing yet -- time val on loops Q for Ruby 2 assessment
+
+def bsearch(nums, target, start = 0, finish = nums.length)
+    returns nil if start == finish 
+
+mid = (finish - start) / 2 + start 
+case target <=> nums[mid]
+when -1 
+    bsearch(nums, target, start, mid)
+when 0 
+    mid 
+when 1 
+    bsearch(nums, target, mid + 1, finish)
+end 
+
+Ex 5. Merge Sort
+
+class Array 
+def merge_sort
+    return self if count <2
+
+    middle = count/2
+
+    left, right = self.take(middle), right.drop(middle)
+
+    sorted_left, sorted_right = merge(left.merge_sort, right.merge_sort)
+
+    self.class
+
+    ...unfinished...
+
+    given the array length, we have to split the array n times, we are splitting the array until we have each individual element isolated, continuing to split in half
+
+    each time we divide into half, thats one level, so to go from 7, to all of them separate we need to divide in half 3 times. Thats where the O(log(n)) comes from, we are splitting this array into logn calls -- > takes us logn calls to get to our base case; how many tiems are we splitting it
+
+
+    ^^ the way we solve for it is linearithmic!
+
+
+    this is a mulitplicative problem
+
+    how long does it take to get to the base case and how many base cases are there? n 
+
+..I DONT GET IT...
+
+
+Ex. 6 
+
+#time: O(n^2)
+#space: O(n^2)
+
+def all_pair_sums(array)
+    sums = []
+
+    array.each do |el1|
+        array.each do |el2|
+            sums << el1 + el2
+
+        end 
+    end 
+
+    sums 
+end
+
+
+    O(n^2) -- multiplicative for nested loops. 
+    going through a nested loop and doing it twice so that is O(n^2)
+
+we are storing elemenets? in the sums array
+
+ array.each do |el1| runs 10x
+     array.each do |el2| <- runs 10x... so 10 x 10 means it runs 100x
+        sums << el1 + el2 running this 100 times, shoving 100 elements into sums array, shoveling n, n times, so n X n is n^2
+
+
+Ex 7. 
+class Array 
+def subsets 
+    return [[]] if empty?
+subs_without_first = drop(1).subsets
+subs_with_first = subs_without_first.map { |sub| [first] + sub} 
+subs_with_first + subs_without_first 
+end 
+end 
+
+[1].subset => [[], [1]] #2^1
+[1,2].subsets => [[], [1], [2], [1,2]] #2^2
+[1,2,3].subsets => [[], [1], [2], [1,2], [3], [1,3], [1,2,3]] #2^3
+
+#2^n 
+
+O(n!)- permutations - the worst one that we have 
+
+
+
+nlog(n) the best we can do for an unsorted array that we know nothing about
+
+
+We usually care more about time complexity than space complexity-- you can ask the interviewer-- i have one method that takes less 
+space and another that takes less time, which would you prefer? it shows that you knw what youre talking about and it might change based on what they are hiring you to work on
+
+
+
+
