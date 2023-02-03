@@ -79,3 +79,58 @@ end
 
 list = [ 3, 0, 5, 4, -5, 10, 1, 90 ]
 p my_min(list)  # =>  -5
+
+
+
+# def sub(array)
+#     holder = []
+#     temp = []
+  
+#     i = 0
+#       while i < array.length
+#           j = 0 
+#             while j < array.length
+#             holder.push(array[i..j])
+              
+#               j+=1
+#             end
+#         i+=1
+#       end
+  
+#     i = 0
+#       while i < holder.length
+#         temp.push(holder[i].sum)
+#         i+=1
+#       end
+  
+#     return temp.max
+#   end
+
+
+  def sub_sum(nums)
+    subs = []
+    new_array = []
+    (0...nums.length).each do |idx|  #O(n^2)
+        (idx...nums.length).each do |idx2|
+           substring = nums[idx..idx2]
+           subs << substring
+        end
+    end
+    subs.each do |sub| #O(n)
+        new_array << sub.sum
+    end
+    new_array.max
+end
+array = [5, 3, -7]
+p sub_sum(array)
+
+
+
+
+
+
+
+
+
+
+
