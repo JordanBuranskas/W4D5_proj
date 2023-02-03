@@ -1,84 +1,84 @@
 
 
-# def my_min(list)
+# # def my_min(list)
 
-#     final = []
-#     sorted = false 
+# #     final = []
+# #     sorted = false 
 
-#     i = 0
+# #     i = 0
 
-#     while sorted == false 
-#         while i < list.length
-#             sorted = true
-#                 j = i + 1
-#                 while j < list.length 
-#                     if list[i] < list[j]
-#                     final << list[i]
-#                     sorted = false 
-#                     end
-#                 j += 1
-#                 end
-#             i += 1
-#         end
-#     end
+# #     while sorted == false 
+# #         while i < list.length
+# #             sorted = true
+# #                 j = i + 1
+# #                 while j < list.length 
+# #                     if list[i] < list[j]
+# #                     final << list[i]
+# #                     sorted = false 
+# #                     end
+# #                 j += 1
+# #                 end
+# #             i += 1
+# #         end
+# #     end
 
-#     final.first 
-# end
-
-
-#PHASE 1
-
-def my_min(array)
-
-min = array[0] #
-
-    array.each do |ele1|  #0(n^2)
-        array.each do |ele2|
-            if ele2 < ele1   
-                min = ele2
-            end
-        end
-    end
-
-    min
-end
+# #     final.first 
+# # end
 
 
-
-
-
-#PHASE 2
+# #PHASE 1
 
 # def my_min(array)
 
-#     min = array[0]
+# min = array[0] #
 
-#     i = 0
-#     while i < array.length - 1
-#         if array[i] < array[i + 1]
-#             min = array[i]
+#     array.each do |ele1|  #0(n^2)
+#         array.each do |ele2|
+#             if ele2 < ele1   
+#                 min = ele2
+#             end
 #         end
-#         i += 1
 #     end
 
 #     min
-   
 # end
 
-def my_min(array)  #O(n)
 
-    min = array[0]   #O(1)
 
-    (0...array.length-1).each do |i| #0(1n)
-        if array[i] < min #O(1)
-            min = array[i + 1] #O(1)
-        end
-    end
-    min
-end
 
-list = [ 3, 0, 5, 4, -5, 10, 1, 90 ]
-p my_min(list)  # =>  -5
+
+# #PHASE 2
+
+# # def my_min(array)
+
+# #     min = array[0]
+
+# #     i = 0
+# #     while i < array.length - 1
+# #         if array[i] < array[i + 1]
+# #             min = array[i]
+# #         end
+# #         i += 1
+# #     end
+
+# #     min
+   
+# # end
+
+# def my_min(array)  #O(n)
+
+#     min = array[0]   #O(1)
+
+#     (0...array.length-1).each do |i| #0(1n)
+#         if array[i] < min #O(1)
+#             min = array[i + 1] #O(1)
+#         end
+#     end
+#     min
+# end
+
+# list = [ 3, 0, 5, 4, -5, 10, 1, 90 ]
+# p my_min(list)  # =>  -5
 
 
 
@@ -107,22 +107,47 @@ p my_min(list)  # =>  -5
 #   end
 
 
-  def sub_sum(nums)
-    subs = []
-    new_array = []
+#   def sub_sum(nums)
+#     subs = []
+#     new_array = []
+#     (0...nums.length).each do |idx|  #O(n^2)
+#         (idx...nums.length).each do |idx2|
+#            substring = nums[idx..idx2]
+#            subs << substring
+#         end
+#     end
+#     subs.each do |sub| #O(n)
+#         new_array << sub.sum
+#     end
+#     new_array.max
+# end
+# array = [5, 3, -7]
+# p sub_sum(array)
+
+
+
+
+def sub_sum(nums)
+
+    largest_sum = 0
+
     (0...nums.length).each do |idx|  #O(n^2)
         (idx...nums.length).each do |idx2|
            substring = nums[idx..idx2]
-           subs << substring
+           current_sum = substring.sum
+           if current_sum > largest_sum 
+            largest_sum = current_sum
+           end
         end
     end
-    subs.each do |sub| #O(n)
-        new_array << sub.sum
-    end
-    new_array.max
+
+    return largest_sum
+    
 end
 array = [5, 3, -7]
 p sub_sum(array)
+
+
 
 
 
