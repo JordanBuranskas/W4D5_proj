@@ -1,0 +1,29 @@
+
+
+def my_min(list)
+
+    final = []
+    sorted = false 
+
+    i = 0
+
+    while sorted == false 
+        while i < list.length
+            sorted = true
+                j = i + 1
+                while j < list.length 
+                    if list[i] < list[j]
+                    final << list[i]
+                    sorted = false 
+                    end
+                j += 1
+                end
+            i += 1
+        end
+    end
+
+    final.first 
+end
+
+list = [ 0, 3, 5, 4, -5, 10, 1, 90 ]
+p my_min(list)  # =>  -5
